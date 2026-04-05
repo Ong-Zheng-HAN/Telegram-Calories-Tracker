@@ -36,6 +36,7 @@ def upload_photo(photo_bytes: bytes, filename: str) -> str | None:
                 body=file_metadata,
                 media_body=media,
                 fields="id",
+                supportsAllDrives=True,
             ).execute()
             file_id = file.get("id")
             return f"https://drive.google.com/file/d/{file_id}/view"

@@ -14,7 +14,7 @@ from telegram.ext import (
 
 from config import MAX_PHOTOS_PER_MEAL, MAX_SINGLE_ITEM_CALORIES, USER_TIMEZONE
 from handlers.command_handler import is_authorized, _detect_meal_type
-from services import drive, sheets, vision
+from services import sheets, vision
 
 logger = logging.getLogger(__name__)
 
@@ -34,8 +34,10 @@ async def photo_received(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     if "photos" not in context.user_data:
         context.user_data["photos"] = []
+        context.user_data["photo_file_ids"] = []
 
     photo = update.message.photo[-1]  # Highest resolution
+    context.user_data["photo_file_ids"].append(photo.file_id)
     file = await photo.get_file()
     photo_bytes = await file.download_as_bytearray()
     context.user_data["photos"].append(bytes(photo_bytes))
@@ -324,10 +326,10 @@ async def _show_review_again(update: Update, context: ContextTypes.DEFAULT_TYPE)
 
 
 async def _save_meal(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Save the analysed meal to Google Sheets and Drive."""
+    """Save the analysed meal to Google Sheets with Telegram photo reference."""
     query = update.callback_query
     result = context.user_data.get("analysis", {})
-    photos = context.user_data.get("photos", [])
+    photo_file_ids = context.user_data.get("photo_file_ids", [])
 
     tz = pytz.timezone(context.user_data.get("timezone", USER_TIMEZONE))
     now = datetime.now(tz)
@@ -336,11 +338,8 @@ async def _save_meal(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     meal_type = _detect_meal_type(now.hour)
     food_names = ", ".join(item["food_name"] for item in result.get("items", []))
 
-    # Upload first photo to Drive
-    photo_link = ""
-    if photos:
-        filename = now.strftime("%Y-%m-%d_%H%M%S.jpg")
-        photo_link = drive.upload_photo(photos[0], filename) or ""
+    # Store Telegram file ID as photo reference
+    photo_link = photo_file_ids[0] if photo_file_ids else ""
 
     success = sheets.append_row(
         date=date_str,
@@ -379,6 +378,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 def _clear_session(context: ContextTypes.DEFAULT_TYPE) -> None:
     """Clear photo session data while preserving user settings."""
     context.user_data.pop("photos", None)
+    context.user_data.pop("photo_file_ids", None)
     context.user_data.pop("analysis", None)
     context.user_data.pop("shared_count", None)
 
