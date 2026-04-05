@@ -90,19 +90,19 @@ They provided: {food_description}
 
 Estimate the nutritional data for these food items.
 Return your response as JSON only, no other text:
-{
+{{
   "items": [
-    {
+    {{
       "food_name": "...",
       "portion": "...",
       "calories": 0,
       "protein": 0,
       "carbs": 0,
       "fat": 0
-    }
+    }}
   ],
   "total_calories": 0,
   "total_protein": 0,
   "total_carbs": 0,
   "total_fat": 0
-}"""
+}}"""
