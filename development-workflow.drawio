@@ -1,0 +1,200 @@
+<mxfile host="app.diagrams.net" modified="2026-04-05" agent="Claude" type="device">
+  <diagram id="dev-workflow" name="Development Workflow">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Telegram Calorie Tracker — Development &amp; Deployment Workflow" style="text;html=1;fontSize=20;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== LOCAL DEVELOPMENT (MacBook) ==================== -->
+        <mxCell id="local-group" value="Local Development (MacBook)" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="440" height="520" as="geometry" />
+        </mxCell>
+
+        <!-- Plan -->
+        <mxCell id="plan" value="1. Plan &amp; Design&#xa;(telegram-calorie-tracker-plan.md)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="local-group">
+          <mxGeometry x="30" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Claude Code -->
+        <mxCell id="claude-code" value="2. Build with Claude Code&#xa;(AI-assisted development)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="local-group">
+          <mxGeometry x="30" y="140" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Code Structure -->
+        <mxCell id="code-structure" value="Project Structure:&#xa;├── bot.py&#xa;├── config.py&#xa;├── handlers/&#xa;│   ├── photo_handler.py&#xa;│   ├── text_handler.py&#xa;│   └── command_handler.py&#xa;├── services/&#xa;│   ├── vision.py&#xa;│   ├── sheets.py&#xa;│   ├── drive.py&#xa;│   └── analytics.py&#xa;├── .env.example&#xa;└── .gitignore" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontFamily=Courier New;fillColor=#f5f5f5;strokeColor=#666666;rounded=1;" vertex="1" parent="local-group">
+          <mxGeometry x="250" y="50" width="170" height="240" as="geometry" />
+        </mxCell>
+
+        <!-- Git Commit -->
+        <mxCell id="git-commit" value="3. Git Commit&#xa;(git add → git commit)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="local-group">
+          <mxGeometry x="30" y="230" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Git Push -->
+        <mxCell id="git-push" value="4. Git Push&#xa;(git push origin main)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="local-group">
+          <mxGeometry x="30" y="320" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- SCP Credentials -->
+        <mxCell id="scp-creds" value="One-time: SCP credentials.json&#xa;to Contabo server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=2;" vertex="1" parent="local-group">
+          <mxGeometry x="30" y="420" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Local arrows -->
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="local-group" source="plan" target="claude-code">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="local-group" source="claude-code" target="git-commit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="local-group" source="git-commit" target="git-push">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== GITHUB ==================== -->
+        <mxCell id="github-group" value="GitHub (Remote Repository)" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="80" width="280" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="github-repo" value="Ong-Zheng-HAN/&#xa;Telegram-Calories-Tracker&#xa;(Public Repo)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="github-group">
+          <mxGeometry x="60" y="50" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="github-note" value="Contains:&#xa;- Source code&#xa;- README.md&#xa;- .env.example&#xa;- .gitignore&#xa;(NO secrets)" style="text;html=1;align=left;fontSize=10;fillColor=#f5f5f5;strokeColor=#666666;rounded=1;" vertex="1" parent="github-group">
+          <mxGeometry x="60" y="140" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== CONTABO VPS ==================== -->
+        <mxCell id="contabo-group" value="Contabo VPS (Ubuntu 24.04)" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="920" y="80" width="320" height="520" as="geometry" />
+        </mxCell>
+
+        <!-- SSH -->
+        <mxCell id="ssh" value="5. SSH into server&#xa;(ssh hanzzo@server-ip)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="contabo-group">
+          <mxGeometry x="60" y="50" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Git Pull -->
+        <mxCell id="git-pull" value="6. Git Pull&#xa;(git pull origin main)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="contabo-group">
+          <mxGeometry x="60" y="120" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Restart -->
+        <mxCell id="restart" value="7. Restart Service&#xa;(sudo systemctl restart caloriebot)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="contabo-group">
+          <mxGeometry x="60" y="190" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Bot Running -->
+        <mxCell id="bot-running" value="Bot Running 24/7&#xa;(systemd service)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="contabo-group">
+          <mxGeometry x="55" y="270" width="210" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Server Config -->
+        <mxCell id="server-config" value="Server Config:&#xa;- User: hanzzo&#xa;- Firewall: SSH only&#xa;- Auto security updates&#xa;- .env (secrets)&#xa;- credentials.json" style="text;html=1;align=left;fontSize=10;fillColor=#f5f5f5;strokeColor=#666666;rounded=1;" vertex="1" parent="contabo-group">
+          <mxGeometry x="60" y="370" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Contabo arrows -->
+        <mxCell id="a6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="contabo-group" source="ssh" target="git-pull">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a7" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="contabo-group" source="git-pull" target="restart">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a8" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="contabo-group" source="restart" target="bot-running">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== EXTERNAL SERVICES ==================== -->
+        <mxCell id="ext-group" value="External Services (APIs)" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="340" width="280" height="260" as="geometry" />
+        </mxCell>
+
+        <mxCell id="telegram-api" value="Telegram Bot API&#xa;(Polling)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="ext-group">
+          <mxGeometry x="20" y="40" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="claude-api" value="Claude API&#xa;(Vision + Q&amp;A)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="ext-group">
+          <mxGeometry x="150" y="40" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sheets-api" value="Google Sheets API&#xa;(Data Storage)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="ext-group">
+          <mxGeometry x="20" y="110" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="telegram-storage" value="Telegram Cloud&#xa;(Photo Storage)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="ext-group">
+          <mxGeometry x="150" y="110" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ext-note" value="All credentials stored in .env&#xa;on Contabo only (never in Git)" style="text;html=1;align=center;fontSize=10;fontStyle=2;fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;" vertex="1" parent="ext-group">
+          <mxGeometry x="30" y="190" width="220" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== CROSS-GROUP ARROWS ==================== -->
+
+        <!-- Local push to GitHub -->
+        <mxCell id="a4" value="git push" style="edgeStyle=orthogonalEdgeStyle;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="git-push" target="github-repo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- GitHub to Contabo -->
+        <mxCell id="a5" value="git pull" style="edgeStyle=orthogonalEdgeStyle;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="github-repo" target="git-pull">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- SCP to Contabo -->
+        <mxCell id="a9" value="scp (one-time)" style="edgeStyle=orthogonalEdgeStyle;dashed=1;fontStyle=2;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="scp-creds" target="server-config">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="530" />
+              <mxPoint x="510" y="630" />
+              <mxPoint x="900" y="630" />
+              <mxPoint x="900" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Bot to External Services -->
+        <mxCell id="a10" value="API calls" style="edgeStyle=orthogonalEdgeStyle;fontStyle=1;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="bot-running" target="telegram-api">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="430" />
+              <mxPoint x="900" y="405" />
+              <mxPoint x="840" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="a11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="bot-running" target="claude-api">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="430" />
+              <mxPoint x="900" y="405" />
+              <mxPoint x="840" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ==================== FUTURE MIGRATION ==================== -->
+        <mxCell id="future-group" value="Future: Mac Studio Migration" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=3;rounded=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="920" y="640" width="320" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="future-note" value="Containerise with Docker → migrate from&#xa;Contabo to local Mac Studio" style="text;html=1;align=center;fontSize=11;fontStyle=2;" vertex="1" parent="future-group">
+          <mxGeometry x="10" y="30" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Future arrow -->
+        <mxCell id="a12" style="dashed=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="contabo-group" target="future-group">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
